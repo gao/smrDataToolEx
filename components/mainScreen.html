@@ -1,0 +1,31 @@
+<script type="text/javascript">
+snow.ui.registerComponent("mainScreen", 
+	{
+    parent: "#page",
+	unique: true
+	}, 
+	{
+	build: function(){
+		var $e = $("#tmpl-mainScreen").render({});
+		return $e;
+	}, 
+	postDisplay: function(){
+		var component = this;
+		var $element = this.$element;
+
+		snow.ui.display("createSmrData");
+	}
+});
+
+</script>
+
+<script id="tmpl-mainScreen" type="text/html">
+	<div id="mainFrame">
+		<div id="menu">
+			<div class="menu-item"><label>Create SMR Data</label></div>
+		</div>
+		<div id="mainContent">
+			
+		</div>
+	</div>
+</script>

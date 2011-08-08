@@ -1,0 +1,53 @@
+<script type="text/javascript">
+snow.ui.registerComponent("createSmrData", 
+	{
+	    parent: "#mainContent",
+		unique: true,
+		emptyParent: true
+	}, 
+	{
+	build: function(){
+		var $e = $("#tmpl-mainScreenSmr").render({});
+		return $e;
+	}, 
+	postDisplay: function(){
+		var component = this;
+		var $element = this.$element;
+		
+		$element.sTouch(".generateButton",function(e){
+			var $frtText = $("#frtText");
+			var $scdText = $("#scdText");
+			
+			var frtTextVal = $frtText.val();
+			var scdTextVal = "";
+			
+			scdTextVal = smr.generateSmrData(frtTextVal);
+
+			$scdText.text("").val(scdTextVal);
+		});
+		
+	}
+});
+
+</script>
+
+<script id="tmpl-mainScreenSmr" type="text/html">
+<div class="mainScreen">
+
+	<div class="firstArea">
+		Input Data TextArea:</br>
+		<textarea id="frtText" cols="50" rows="27"></textarea></br>
+	</div>
+	
+	<div class="generate">
+		<div class="genDiv">
+			<button class="generateButton">generate >></button>
+		</div>
+	</div>
+	
+	<div class="sencondArea">
+		Output TextArea:</br>
+		<textarea id="scdText" cols="50" rows="27"></textarea>
+	</div>
+</div>	
+</script>
