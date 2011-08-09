@@ -1,8 +1,16 @@
 var smr = smr || {};
 
-smr.dateVal=['2011-08-05','2011-08-06','2011-08-07','2011-08-08','2011-08-09','2011-08-10','2011-08-11',
+smr.dateForDay=['2011-08-05','2011-08-06','2011-08-07','2011-08-08','2011-08-09','2011-08-10','2011-08-11',
              '2011-08-12','2011-08-13','2011-08-14','2011-08-15','2011-08-16','2011-08-17','2011-08-18',
              '2011-08-19','2011-08-21','2011-08-22','2011-08-23','2011-08-24','2011-08-25','2011-08-26']; 
+
+smr.dateForWeek=['2011-06-06','2011-06-13','2011-06-20','2011-06-27','2011-07-04','2011-07-11','2011-07-18',
+             '2011-07-25','2011-08-01','2011-08-08','2011-08-15','2011-08-22','2011-08-29','2011-09-05']; 
+
+smr.dateForMonth=['2011-01-01','2011-02-01','2011-03-01','2011-04-01','2011-05-01','2011-06-01','2011-07-01',
+             '2011-08-01','2011-09-01','2011-10-01','2011-11-01','2011-12-01']; 
+
+smr.dateForQuarter=['2010-01-01','2010-04-01','2010-07-01','2010-10-01','2011-01-01','2011-04-01','2011-07-01','2011-10-01']; 
 
 smr.mockClicks=[30014,36500,33841,26197,37239,27774,23183,20888,30253,26839,44417,41757,44383,15813,
                    28449,25757,41533,28167,26347,30803,32185];
@@ -23,29 +31,33 @@ smr.mockDeliveredPct=[12,30,13,26,7,21,9,20,9,16,11,11,43,15,18,15,13,21,24,30,9
 smr.generateSmrData = function(text,dataType,breakDown){
 	var data = eval("(" + text + ")");
 	var resultData = [];
+	var dateVal = smr.dateForDay;
 	// set the minor change the data 
 	var addCount = 5;
 	var addRate = 0.5;
 	if(breakDown == "week"){
 		addCount = 20;
 		addRate = 2;
+		dateVal = smr.dateForWeek;
 	}else if(breakDown == "month"){
 		addCount = 30;
 		addRate = 3;
+		dateVal = smr.dateForMonth;
 	}else if(breakDown == "mailing"){
 		addCount = 40;
 		addRate = 4;
 	}else if(breakDown == "quarter"){
 		addCount = 50;
 		addRate = 5;
+		dateVal = smr.dateForQuarter;
 	}else if(breakDown == "target"){
 		addCount = 10;
 		addRate = 1;
 	}
 
-	for(var i=0;i<smr.dateVal.length;i++){
+	for(var i=0;i<dateVal.length;i++){
 		var dataRow = data;
-		dataRow.date = smr.dateVal[i];
+		dataRow.date = dateVal[i];
 		if(dataType == "batch"){
 			//add some mock data
 			dataRow.clicks.count = smr.mockClicks[i] + addCount;
