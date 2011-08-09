@@ -20,10 +20,22 @@ snow.ui.registerComponent("createSmrData",
 			
 			var frtTextVal = $frtText.val();
 			var scdTextVal = "";
+			var dataType = $("#selectType option:selected").val();
+			var breakDown = $("#selectBreakDown option:selected").val();
+			console.log(dataType);
 			
-			scdTextVal = smr.generateSmrData(frtTextVal);
+			scdTextVal = smr.generateSmrData(frtTextVal,dataType,breakDown);
 
-			$scdText.text("").val(scdTextVal);
+			$scdText.val("").val(scdTextVal);
+		});
+		
+		$element.sTouch(".clearButton",function(e){
+			$("#frtText").val("");
+			$("#scdText").val("");
+		});
+		
+		$element.sTouch(".clearRightButton",function(e){
+			$("#scdText").val("");
 		});
 		
 	}
@@ -33,6 +45,24 @@ snow.ui.registerComponent("createSmrData",
 
 <script id="tmpl-mainScreenSmr" type="text/html">
 <div class="mainScreen">
+	
+	<div class="settings">
+		<lable>Data For:</lable>
+		<select id="selectType">
+			<option value="batch">Batch</option>
+			<option value="transactional">Transactional</option>
+		</select>
+		<br>
+		<lable>BreakDown:</lable>
+		<select id="selectBreakDown">
+			<option value="day">day</option>
+			<option value="week">week</option>
+			<option value="month">month</option>
+			<option value="mailing">mailing</option>
+			<option value="quarter">quarter</option>
+			<option value="target">target</option>
+		</select>
+	</div>
 
 	<div class="firstArea">
 		Input Data TextArea:</br>
@@ -41,7 +71,13 @@ snow.ui.registerComponent("createSmrData",
 	
 	<div class="generate">
 		<div class="genDiv">
-			<button class="generateButton">generate >></button>
+			<button class="generateButton">Generate >></button>
+		</div>
+		<div class="genDiv">
+			<button class="clearRightButton"> Clear Right Data </button>
+		</div>
+		<div class="genDiv">
+			<button class="clearButton"> Clear All Data </button>
 		</div>
 	</div>
 	

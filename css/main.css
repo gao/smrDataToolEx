@@ -48,6 +48,12 @@ body{
 	overflow:hidden;
 }
 
+.mainScreen .settings{
+	position:relative;
+	float:top;
+	margin: 20px 10px 20px 10px;
+}
+
 .mainScreen button{
 	cursor: pointer;
 }
