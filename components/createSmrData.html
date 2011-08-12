@@ -20,11 +20,10 @@ snow.ui.registerComponent("createSmrData",
 			
 			var frtTextVal = $frtText.val();
 			var scdTextVal = "";
-			var dataType = $("#selectType option:selected").val();
-			var breakDown = $("#selectBreakDown option:selected").val();
-			console.log(dataType);
+			var dataFor = $("#selectDataFor option:selected").val();
+			var dataTpye = $("#selectDataType option:selected").val();
 			
-			scdTextVal = smr.generateSmrData(frtTextVal,dataType,breakDown);
+			scdTextVal = smr.generateSmrData(frtTextVal,dataFor,dataTpye);
 
 			$scdText.val("").val(scdTextVal);
 		});
@@ -48,19 +47,23 @@ snow.ui.registerComponent("createSmrData",
 	
 	<div class="settings">
 		<lable>Data For:</lable>
-		<select id="selectType">
+		<select id="selectDataFor">
 			<option value="batch">Batch</option>
 			<option value="transactional">Transactional</option>
 		</select>
 		<br>
-		<lable>BreakDown:</lable>
-		<select id="selectBreakDown">
+		<lable>Data Type:</lable>
+		<select id="selectDataType">
 			<option value="day">day</option>
 			<option value="week">week</option>
 			<option value="month">month</option>
 			<option value="mailing">mailing</option>
 			<option value="quarter">quarter</option>
 			<option value="target">target</option>
+			<option value="sharing">sharing</option>
+			<option value="sharingftaf">sharing Ftaf</option>
+			<option value="failuredetail">failure detail</option>
+			<option value="failureinstance">failure instance</option>
 		</select>
 	</div>
 

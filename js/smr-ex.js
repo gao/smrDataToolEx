@@ -12,6 +12,10 @@ smr.dateForMonth=['2011-01-01','2011-02-01','2011-03-01','2011-04-01','2011-05-0
 
 smr.dateForQuarter=['2010-01-01','2010-04-01','2010-07-01','2010-10-01','2011-01-01','2011-04-01','2011-07-01','2011-10-01']; 
 
+smr.dateFormat=['08\/05\/2011','08\/06\/2011','08\/07\/2011','08\/08\/2011','08\/09\/2011','08\/10\/2011','08\/11\/2011',
+                '08\/12\/2011','08\/13\/2011','08\/14\/2011','08\/15\/2011','08\/16\/2011','08\/17\/2011','08\/18\/2011',
+                '08\/19\/2011','08\/20\/2011','08\/21\/2011','08\/22\/2011',]; 
+
 smr.mockClicks=[30014,36500,33841,26197,37239,27774,23183,20888,30253,26839,44417,41757,44383,15813,
                    28449,25757,41533,28167,26347,30803,32185];
 smr.mockClicksRate=[14,36,33,26,39,24,18,20,30,26,17,47,43,13,29,25,41,28,27,30,32];
@@ -28,76 +32,165 @@ smr.mockOpensPct=[12,30,13,26,7,12,13,20,6,16,7,11,43,15,18,15,13,21,24,30,15];
 smr.mockDelivered=[114,326,323,216,319,214,118,220,320,126,217,447,143,213,329,325,111,228,267,302,322];
 smr.mockDeliveredPct=[12,30,13,26,7,21,9,20,9,16,11,11,43,15,18,15,13,21,24,30,9];
 
-smr.generateSmrData = function(text,dataType,breakDown){
+smr.generateSmrData = function(text,dataFor,dataType){
 	var data = eval("(" + text + ")");
 	var resultData = [];
 	var dateVal = smr.dateForDay;
+	
+	var baseNum = 100;
+	var baseNumB = 200;
+	
 	// set the minor change the data 
 	var addCount = 5;
 	var addRate = 0.5;
-	if(breakDown == "week"){
+	if(dataType == "week"){
 		addCount = 20;
 		addRate = 2;
 		dateVal = smr.dateForWeek;
-	}else if(breakDown == "month"){
+	}else if(dataType == "month"){
 		addCount = 30;
 		addRate = 3;
 		dateVal = smr.dateForMonth;
-	}else if(breakDown == "mailing"){
+	}else if(dataType == "mailing"){
 		addCount = 40;
 		addRate = 4;
-	}else if(breakDown == "quarter"){
+	}else if(dataType == "quarter"){
 		addCount = 50;
 		addRate = 5;
 		dateVal = smr.dateForQuarter;
-	}else if(breakDown == "target"){
+	}else if(dataType == "target"){
 		addCount = 10;
 		addRate = 1;
+	}
+	
+	//here change date format
+	if(dataType == "sharing" || dataType == "sharingftaf" || dataType == "failuredetail" || dataType == "failureinstance"){
+		dateVal = smr.dateFormat;
 	}
 
 	for(var i=0;i<dateVal.length;i++){
 		var dataRow = data;
-		dataRow.date = dateVal[i];
-		if(dataType == "batch"){
+		
+		if(dataFor == "batch"){
 			//add some mock data
-			dataRow.clicks.count = smr.mockClicks[i] + addCount;
-			dataRow.clicks.rate = smr.mockClicksRate[i] + addRate;
-			dataRow.clicks.unique = smr.mockClicks[i] - addCount;
-			dataRow.clicks.uniqueRate = smr.mockClicksRate[i] - addRate;
+			if(dataType == "sharing"){
+				dataRow.aggDate = dateVal[i];
+				dataRow.offerId = baseNum + i;
+				dataRow.offerName = "offer" + i;
+				dataRow.offerShares = i;
+				dataRow.offerUrl = "testurl" + i;
+				dataRow.totalOfferClicks = baseNum + (i*5);
+				dataRow.totalOfferShareCount = baseNum + (i*3);
+			}else if(dataType == "sharingftaf"){
+				dataRow.clickers = i;
+				dataRow.date = dateVal[i];
+				dataRow.forwaders = i + 1;
+				dataRow.forwarededMessages = i + 1;
+				dataRow.mailingId = baseNum + i;
+				dataRow.openers =  i + 2;
+				dataRow.subscribers = i + 3;
+				dataRow.viralFactor = i*1.2;
+			}else if(dataType == "failuredetail"){
+				dataRow.count = baseNum + i;
+				dataRow.detailCode = baseNum*10 + i;
+				dataRow.detailDescription = "message" + 1;
+				dataRow.failurePercentage = i*1.5;
+				dataRow.failureRate =  i*2;
+			}else if(dataType == "failureinstance"){
+				dataRow.block = baseNum + i;
+				dataRow.date = dateVal[i];
+				dataRow.failed = baseNum*10 + i;
+				dataRow.failedRate = i*1.5;
+				dataRow.hbounce = baseNum*20 + i;
+				dataRow.sbounce =  i*5;
+				dataRow.sent =  baseNum*15 + i;
+				dataRow.sentRate =  i*1.5;
+				dataRow.technical =  i*2;
+				dataRow.unknown =  i;
+			}else{
+				//here for dataType : day week month quarter
+				dataRow.date = dateVal[i];
+				
+				dataRow.clicks.count = smr.mockClicks[i] + addCount;
+				dataRow.clicks.rate = smr.mockClicksRate[i] + addRate;
+				dataRow.clicks.unique = smr.mockClicks[i] - addCount;
+				dataRow.clicks.uniqueRate = smr.mockClicksRate[i] - addRate;
+				
+				dataRow.sent.count = smr.mockSents[i] + addCount;
+				dataRow.sent.rate = smr.mockSentsRate[i] + addRate;
+				
+				dataRow.opens.count = smr.mockOpens[i] + addCount;
+				dataRow.opens.rate = smr.mockOpensRate[i] + addRate;
+				dataRow.opens.unique = smr.mockOpens[i] - addCount;
+				dataRow.opens.uniqueRate = smr.mockOpensRate[i] - addRate;
+				dataRow.opens.percent = smr.mockOpensPct[i] + addRate;
+				
+				dataRow.delivered.count = smr.mockDelivered[i] + addCount;
+				dataRow.delivered.rate = smr.mockDeliveredPct[i] - addRate;
+				dataRow.delivered.percent = smr.mockDeliveredPct[i] + addRate;
+			}
 			
-			dataRow.sent.count = smr.mockSents[i] + addCount;
-			dataRow.sent.rate = smr.mockSentsRate[i] + addRate;
-			
-			dataRow.opens.count = smr.mockOpens[i] + addCount;
-			dataRow.opens.rate = smr.mockOpensRate[i] + addRate;
-			dataRow.opens.unique = smr.mockOpens[i] - addCount;
-			dataRow.opens.uniqueRate = smr.mockOpensRate[i] - addRate;
-			dataRow.opens.percent = smr.mockOpensPct[i] + addRate;
-			
-			dataRow.delivered.count = smr.mockDelivered[i] + addCount;
-			dataRow.delivered.rate = smr.mockDeliveredPct[i] - addRate;
-			dataRow.delivered.percent = smr.mockDeliveredPct[i] + addRate;
-		}else if(dataType == "transactional"){
+		}else if(dataFor == "transactional"){
 			//add some mock data
-			dataRow.clicks.count = smr.mockClicks[i] + addCount;
-			dataRow.clicks.rate = smr.mockClicksRate[i] + addRate;
-			dataRow.uniqueClicks.count = smr.mockClicks[i] - addCount;
-			dataRow.uniqueClicks.rate = smr.mockClicksRate[i] - addRate;
+			if(dataType == "sharing"){
+				dataRow.aggDate = dateVal[i];
+				dataRow.offerId = baseNumB + i;
+				dataRow.offerName = "offer" + i;
+				dataRow.offerShares = i;
+				dataRow.offerUrl = "testurl" + i;
+				dataRow.totalOfferClicks = baseNumB + (i*5);
+				dataRow.totalOfferShareCount = baseNumB + (i*3);
+			}else if(dataType == "sharingftaf"){
+				dataRow.clickers = i;
+				dataRow.date = dateVal[i];
+				dataRow.forwaders = i + 1;
+				dataRow.forwarededMessages = i + 1;
+				dataRow.mailingId = baseNumB + i;
+				dataRow.openers =  i + 2;
+				dataRow.subscribers = i + 3;
+				dataRow.viralFactor = i*1.1;
+			}else if(dataType == "failuredetail"){
+				dataRow.count = baseNumB + i;
+				dataRow.detailCode = baseNumB*10 + i;
+				dataRow.detailDescription = "message" + 1;
+				dataRow.failurePercentage = i;
+				dataRow.failureRate =  i*2;
+			}else if(dataType == "failureinstance"){
+				dataRow.block = baseNumB + i;
+				dataRow.date = dateVal[i];
+				dataRow.failed = baseNumB*10 + i;
+				dataRow.failedRate = i*1.5;
+				dataRow.hbounce = baseNumB*20 + i;
+				dataRow.sbounce =  i*2;
+				dataRow.sent =  baseNumB*15 + i;
+				dataRow.sentRate =  i;
+				dataRow.technical =  i;
+				dataRow.unknown =  i*2;
+			}else{
+				//here for dataType : day week month quarter
+				dataRow.date = dateVal[i];
+				
+				dataRow.clicks.count = smr.mockClicks[i] + addCount;
+				dataRow.clicks.rate = smr.mockClicksRate[i] + addRate;
+				dataRow.uniqueClicks.count = smr.mockClicks[i] - addCount;
+				dataRow.uniqueClicks.rate = smr.mockClicksRate[i] - addRate;
+				
+				dataRow.sent.count = smr.mockSents[i] + addCount;
+				dataRow.sent.rate = smr.mockSentsRate[i] + addRate;
+				
+				dataRow.opens.count = smr.mockOpens[i] + addCount;
+				dataRow.opens.rate = smr.mockOpensRate[i] + addRate;
+				dataRow.opens.countChange = smr.mockOpensPct[i] + addRate;
+				dataRow.uniqueOpens.count = smr.mockOpens[i] - addCount;
+				dataRow.uniqueOpens.rate = smr.mockOpensRate[i] - addRate;
+				dataRow.uniqueOpens.countChange = smr.mockOpensPct[i] - addRate;
+				
+				dataRow.delivered.count = smr.mockDelivered[i] + addCount;
+				dataRow.delivered.rate = smr.mockDeliveredPct[i] - addRate;
+				dataRow.delivered.countChange = smr.mockDeliveredPct[i] + addRate;
+				dataRow.delivered.rateChange = smr.mockDeliveredPct[i] - addRate;
+			}
 			
-			dataRow.sent.count = smr.mockSents[i] + addCount;
-			dataRow.sent.rate = smr.mockSentsRate[i] + addRate;
-			
-			dataRow.opens.count = smr.mockOpens[i] + addCount;
-			dataRow.opens.rate = smr.mockOpensRate[i] + addRate;
-			dataRow.opens.countChange = smr.mockOpensPct[i] + addRate;
-			dataRow.uniqueOpens.count = smr.mockOpens[i] - addCount;
-			dataRow.uniqueOpens.rate = smr.mockOpensRate[i] - addRate;
-			dataRow.uniqueOpens.countChange = smr.mockOpensPct[i] - addRate;
-			
-			dataRow.delivered.count = smr.mockDelivered[i] + addCount;
-			dataRow.delivered.rate = smr.mockDeliveredPct[i] - addRate;
-			dataRow.delivered.countChange = smr.mockDeliveredPct[i] + addRate;
-			dataRow.delivered.rateChange = smr.mockDeliveredPct[i] - addRate;
 		}
 		resultData.push(eval("(" + JSON.stringify(dataRow)+ ")"));
 	}
