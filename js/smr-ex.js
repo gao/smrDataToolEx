@@ -64,7 +64,7 @@ smr.generateSmrData = function(text,dataFor,dataType){
 	}
 	
 	//here change date format
-	if(dataType == "sharing" || dataType == "sharingftaf" || dataType == "failuredetail" || dataType == "failureinstance"){
+	if(dataType == "sharing" || dataType == "sharingftaf" || dataType == "failuredetail" || dataType == "failureinstance" || dataType == "links"){
 		dateVal = smr.dateFormat;
 	}
 
@@ -107,6 +107,23 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.sentRate =  i*1.5;
 				dataRow.technical =  i*2;
 				dataRow.unknown =  i;
+			}else if(dataType == "links"){
+				dataRow.clickRate = i*1.5;
+				dataRow.date = dateVal[i];
+				dataRow.delivered = baseNum*10 + i;
+				dataRow.linkId = baseNum + i;
+				dataRow.linkName = "linkname" + i;
+				dataRow.linkUrl =  "linkurl" + i;
+				dataRow.mailingId =  baseNum*2 + i;
+				dataRow.mailingName =  "mailingname" + i;
+				dataRow.mailingSubject = "mailingsubject" + i;
+				dataRow.opens =  baseNum*10 + i;;
+				dataRow.templateId = baseNum*3 + i;
+				dataRow.templateType =  "html";
+				dataRow.totalClicks =  baseNum*4 + i;
+				dataRow.uniqueClicks =  baseNum*5 + i;
+				dataRow.uniqueClicksPercent =  i*2;
+				dataRow.uniqueClicksRate =  i;
 			}else{
 				//here for dataType : day week month quarter
 				dataRow.date = dateVal[i];
@@ -166,6 +183,23 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.sentRate =  i;
 				dataRow.technical =  i;
 				dataRow.unknown =  i*2;
+			}else if(dataType == "links"){
+				dataRow.clickRate = i*2;
+				dataRow.date = dateVal[i];
+				dataRow.delivered = baseNumB*10 + i;
+				dataRow.linkId = baseNumB + i;
+				dataRow.linkName = "linknameB" + i;
+				dataRow.linkUrl =  "linkurlB" + i;
+				dataRow.mailingId =  baseNumB*2 + i;
+				dataRow.mailingName =  "mailingnameB" + i;
+				dataRow.mailingSubject = "mailingsubjectB" + i;
+				dataRow.opens =  baseNumB*10 + i;;
+				dataRow.templateId = baseNumB*2 + i;
+				dataRow.templateType =  "html";
+				dataRow.totalClicks =  baseNumB*3 + i;
+				dataRow.uniqueClicks =  baseNumB*4 + i;
+				dataRow.uniqueClicksPercent =  i;
+				dataRow.uniqueClicksRate =  i*2;
 			}else{
 				//here for dataType : day week month quarter
 				dataRow.date = dateVal[i];
