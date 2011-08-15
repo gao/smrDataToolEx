@@ -16,6 +16,10 @@ smr.dateFormat=['08\/05\/2011','08\/06\/2011','08\/07\/2011','08\/08\/2011','08\
                 '08\/12\/2011','08\/13\/2011','08\/14\/2011','08\/15\/2011','08\/16\/2011','08\/17\/2011','08\/18\/2011',
                 '08\/19\/2011','08\/20\/2011','08\/21\/2011','08\/22\/2011',]; 
 
+smr.dateFormat2=['09\/05\/2011','09\/06\/2011','09\/07\/2011','09\/08\/2011','09\/09\/2011','09\/10\/2011','09\/11\/2011',
+                '09\/12\/2011','09\/13\/2011','09\/14\/2011','09\/15\/2011','09\/16\/2011','09\/17\/2011','09\/18\/2011',
+                '09\/19\/2011','09\/20\/2011','09\/21\/2011','09\/22\/2011',]; 
+
 smr.mockClicks=[30014,36500,33841,26197,37239,27774,23183,20888,30253,26839,44417,41757,44383,15813,
                    28449,25757,41533,28167,26347,30803,32185];
 smr.mockClicksRate=[14,36,33,26,39,24,18,20,30,26,17,47,43,13,29,25,41,28,27,30,32];
@@ -36,6 +40,7 @@ smr.generateSmrData = function(text,dataFor,dataType){
 	var data = eval("(" + text + ")");
 	var resultData = [];
 	var dateVal = smr.dateForDay;
+	var dateVal2 = smr.dateFormat2;
 	
 	var baseNum = 100;
 	var baseNumB = 200;
@@ -64,7 +69,8 @@ smr.generateSmrData = function(text,dataFor,dataType){
 	}
 	
 	//here change date format
-	if(dataType == "sharing" || dataType == "sharingftaf" || dataType == "failuredetail" || dataType == "failureinstance" || dataType == "links"){
+	if(dataType == "sharing" || dataType == "sharingftaf" || dataType == "failuredetail" || dataType == "failureinstance" || 
+			dataType == "links"  || dataType == "filterMailings" || dataType == "filterPrograms" || dataType == "filterCampaigns"){
 		dateVal = smr.dateFormat;
 	}
 
@@ -124,7 +130,7 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.uniqueClicks =  baseNum*5 + i;
 				dataRow.uniqueClicksPercent =  i*2;
 				dataRow.uniqueClicksRate =  i;
-			}else{
+			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target"){
 				//here for dataType : day week month quarter
 				dataRow.date = dateVal[i];
 				
@@ -200,7 +206,7 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.uniqueClicks =  baseNumB*4 + i;
 				dataRow.uniqueClicksPercent =  i;
 				dataRow.uniqueClicksRate =  i*2;
-			}else{
+			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target"){
 				//here for dataType : day week month quarter
 				dataRow.date = dateVal[i];
 				
@@ -226,6 +232,25 @@ smr.generateSmrData = function(text,dataFor,dataType){
 			}
 			
 		}
+		
+		//here the Filter Lightbox 
+		if(dataType == "filterMailings"){
+			dataRow.campaign = "testcampaign" + i;
+			dataRow.completedDate =  dateVal2[i];
+			dataRow.id = i + 1;
+			dataRow.launchDate = dateVal[i];
+			dataRow.name =  "testmailing" + i;
+		}else if(dataType == "filterPrograms"){
+			dataRow.campaign = "testcampaign" + i + 1;
+			dataRow.completedDate =  dateVal2[i];
+			dataRow.id = i + 1;
+			dataRow.launchDate = dateVal[i];
+			dataRow.name =  "testprogram" + i;
+		}else if(dataType == "filterCampaigns"){
+			dataRow.campaign = "testcampaign" + i;
+			dataRow.id = i + 1;
+		}
+		
 		resultData.push(eval("(" + JSON.stringify(dataRow)+ ")"));
 	}
 
