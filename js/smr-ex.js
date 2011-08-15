@@ -262,9 +262,9 @@ smr.generateSmrData = function(text,dataFor,dataType){
 smr.generateSmrComparisonData = function(text,dataFor,dataType){
 	var data = eval("(" + text + ")");
 	var resultData = [];
-	var summary = {"summary0":{},"summary1":{},"summary2":{},"summary3":{},"summary4":{},"summary5":{}};
+	var summary = {"summary":{},"summary2":{}};
 	
-	for(var i=0;i<6;i++){
+	for(var i=0;i<2;i++){
 		var dataRow = data;
 		if(dataFor == "batch"){
 			dataRow.clickToOpen.count = smr.mockClicks[i] ;
@@ -373,13 +373,10 @@ smr.generateSmrComparisonData = function(text,dataFor,dataType){
 			dataRow.unsubs.rate = smr.mockOpensRate[i] + (i+1);
 		}
 		
-		switch (i){
-		   case 0:summary.summary0 = dataRow;break
-		   case 1:summary.summary1 = dataRow;break
-		   case 2:summary.summary2 = dataRow;break
-		   case 3:summary.summary3 = dataRow;break
-		   case 4:summary.summary4 = dataRow;break
-		   case 5:summary.summary5 = dataRow;break
+		if(i == 0){
+			summary.summary = dataRow;
+		}else{
+			summary.summary2 = dataRow;
 		}
 		
 	}
