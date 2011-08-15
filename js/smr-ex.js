@@ -265,9 +265,11 @@ smr.generateSmrComparisonData = function(text,dataFor,dataType){
 	var summary = {"summary":{},"summary2":{}};
 	
 	for(var i=0;i<2;i++){
+		console.log(smr.mockClicksRate[i]);
 		var dataRow = data;
 		if(dataFor == "batch"){
-			dataRow.clickToOpen.count = smr.mockClicks[i] ;
+			dataRow.clickToOpen.uniqueRate = smr.mockClicksRate[i] ;
+			console.log(dataRow.clickToOpen.uniqueRate);
 			dataRow.clickToOpen.rate = smr.mockClicksRate[i];
 			
 			dataRow.clicks.count = smr.mockClicks[i];
@@ -319,64 +321,64 @@ smr.generateSmrComparisonData = function(text,dataFor,dataType){
 			dataRow.unsub.uniqueRate = smr.mockOpensRate[i] + i;
 			
 		}else  if(dataFor == "transactional"){
-			dataRow.clickToOpen.count = smr.mockClicks[i] ;
-			dataRow.clickToOpen.rate = smr.mockClicksRate[i];
+			dataRow.clickToOpen.uniqueRate = smr.mockClicksRate[i] + (i*5) ;
+			dataRow.clickToOpen.rate = smr.mockClicksRate[i] + (i+5);
 			
-			dataRow.clicks.count = smr.mockClicks[i];
-			dataRow.clicks.rate = smr.mockClicksRate[i];
+			dataRow.clicks.count = smr.mockClicks[i] + (i*5);
+			dataRow.clicks.rate = smr.mockClicksRate[i] + (i+10);
 			
-			dataRow.complaints.count = smr.mockClicks[i] + i;
+			dataRow.complaints.count = smr.mockClicks[i] + (i*200);
 			dataRow.complaints.rate = smr.mockClicksRate[i] + i;
 			
-			dataRow.conversions.count = smr.mockClicks[i] + i;
-			dataRow.conversions.rate = smr.mockClicksRate[i] + i;
+			dataRow.conversions.count = smr.mockClicks[i] + (i*5);
+			dataRow.conversions.rate = smr.mockClicksRate[i] + (i+5);
 			
 			dataRow.convertToClick.rate = smr.mockSentsRate[i] + i;
-			dataRow.convertToClick.uniqueRate = smr.mockSentsRate[i] + i;
+			dataRow.convertToClick.uniqueRate = smr.mockSentsRate[i] + (i+5);
 			
-			dataRow.delivered.count = smr.mockDelivered[i] ;
-			dataRow.delivered.rate = smr.mockDeliveredPct[i];
+			dataRow.delivered.count = smr.mockDelivered[i] + (i*500) ;
+			dataRow.delivered.rate = smr.mockDeliveredPct[i] + (i+5);
 
-			dataRow.failed.count = smr.mockSents[i] + i;
-			dataRow.failed.rate = smr.mockSentsRate[i] + i;
+			dataRow.failed.count = smr.mockSents[i] + (i*100);
+			dataRow.failed.rate = smr.mockSentsRate[i] + (i+5);
 			
-			dataRow.invalid.count = smr.mockSents[i] + i;
-			dataRow.invalid.rate = smr.mockSentsRate[i] + i;
+			dataRow.invalid.count = smr.mockSents[i] + (i*120);
+			dataRow.invalid.rate = smr.mockSentsRate[i] + (i+10);
 			
-			dataRow.opens.count = smr.mockOpens[i] ;
-			dataRow.opens.rate = smr.mockOpensRate[i];
+			dataRow.opens.count = smr.mockOpens[i] + (i*105) ;
+			dataRow.opens.rate = smr.mockOpensRate[i] + (i+5);
 			
-			dataRow.sent.count = smr.mockSents[i];
-			dataRow.sent.rate = smr.mockSentsRate[i];
+			dataRow.sent.count = smr.mockSents[i] + (i*25);
+			dataRow.sent.rate = smr.mockSentsRate[i] + (i+5);
 			
-			dataRow.triggered.count = smr.mockSents[i] + (i+5);
-			dataRow.triggered.rate = smr.mockSentsRate[i] + (i+0.5);
+			dataRow.triggered.count = smr.mockSents[i] + (i*5);
+			dataRow.triggered.rate = smr.mockSentsRate[i] + (i+2);
 			
 			dataRow.threshold = 95 + (i+0.5);
 			
-			dataRow.uniqueClicks.count = smr.mockClicks[i] + i;
-			dataRow.uniqueClicks.rate = smr.mockClicksRate[i] + i;
+			dataRow.uniqueClicks.count = smr.mockClicks[i] + (i*250);
+			dataRow.uniqueClicks.rate = smr.mockClicksRate[i] + (i+5);
 			
-			dataRow.uniqueComplaints.count = smr.mockClicks[i] + (i+1);
+			dataRow.uniqueComplaints.count = smr.mockClicks[i] + (i*111);
 			dataRow.uniqueComplaints.rate = smr.mockClicksRate[i] + (i+1);
 			
-			dataRow.uniqueConversions.count = smr.mockClicks[i] + (i+2);
+			dataRow.uniqueConversions.count = smr.mockClicks[i] + (i*22);
 			dataRow.uniqueConversions.rate = smr.mockClicksRate[i] + (i+2);
 			
-			dataRow.uniqueOpens.count = smr.mockOpens[i] + i;
-			dataRow.uniqueOpens.rate = smr.mockOpensRate[i] + i;
+			dataRow.uniqueOpens.count = smr.mockOpens[i] + (i*220);
+			dataRow.uniqueOpens.rate = smr.mockOpensRate[i] + (i*2);
 			
-			dataRow.uniqueUnsubs.count = smr.mockClicks[i] + i;
-			dataRow.uniqueUnsubs.rate = smr.mockClicksRate[i] + i;
+			dataRow.uniqueUnsubs.count = smr.mockClicks[i] + (i*520);
+			dataRow.uniqueUnsubs.rate = smr.mockClicksRate[i] +(i*2);
 			
-			dataRow.unsubs.count = smr.mockOpens[i] + (i+1) ;
-			dataRow.unsubs.rate = smr.mockOpensRate[i] + (i+1);
+			dataRow.unsubs.count = smr.mockOpens[i] + (i*51) ;
+			dataRow.unsubs.rate = smr.mockOpensRate[i] + (i*2);
 		}
 		
 		if(i == 0){
-			summary.summary = dataRow;
+			summary.summary = eval("(" + JSON.stringify(dataRow)+ ")");
 		}else{
-			summary.summary2 = dataRow;
+			summary.summary2 = eval("(" + JSON.stringify(dataRow)+ ")");
 		}
 		
 	}
