@@ -23,7 +23,12 @@ snow.ui.registerComponent("createSmrData",
 			var dataFor = $("#selectDataFor option:selected").val();
 			var dataTpye = $("#selectDataType option:selected").val();
 			
-			scdTextVal = smr.generateSmrData(frtTextVal,dataFor,dataTpye);
+			if(dataTpye == "comparison"){
+				scdTextVal = smr.generateSmrComparisonData(frtTextVal,dataFor,dataTpye);
+			}else{
+				scdTextVal = smr.generateSmrData(frtTextVal,dataFor,dataTpye);
+			}
+			
 
 			$scdText.val("").val(scdTextVal);
 		});
@@ -65,6 +70,7 @@ snow.ui.registerComponent("createSmrData",
 			<option value="failuredetail">Failure Detail</option>
 			<option value="failureinstance">Failure Instance</option>
 			<option value="links">Links</option>
+			<option value="comparison">Comparison</option>
 			<option value="filterMailings">Filter Lightbox Mailings</option>
 			<option value="filterPrograms">Filter Lightbox Programs</option>
 			<option value="filterCampaigns">Filter Lightbox Campaigns</option>
