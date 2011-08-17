@@ -135,6 +135,18 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.uniqueClicks =  baseNum*5 + i;
 				dataRow.uniqueClicksPercent =  i*2;
 				dataRow.uniqueClicksRate =  i;
+			}else if(dataType == "linksConversion"){
+				dataRow.linkName = "linkConversionname" + i;
+				dataRow.linkUrl =  "linkConversionurl" + i;
+				dataRow.mailingName =  "mailingConversionname" + i;
+				dataRow.mailingSubject = "mailingConversionsubject" + i;
+				dataRow.conversionCount =  baseNum*10 + i;;
+				dataRow.items = 80 + i;
+				dataRow.averageOrderValue =  i + 5;
+				dataRow.revenue =  20 + i;
+				dataRow.covertToClicks =  baseNum*5 + i;
+				dataRow.mailingId =  baseNum*3 + i;
+				dataRow.linkId =  baseNum*2 + i;
 			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target"){
 				//here for dataType : day week month quarter
 				dataRow.date = dateVal[i];
@@ -215,6 +227,18 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.uniqueClicks =  baseNumB*4 + i;
 				dataRow.uniqueClicksPercent =  i;
 				dataRow.uniqueClicksRate =  i*2;
+			}else if(dataType == "linksConversion"){
+				dataRow.linkName = "linkConversionnameB" + i;
+				dataRow.linkUrl =  "linkConversionurlB" + i;
+				dataRow.mailingName =  "mailingConversionnameB" + i;
+				dataRow.mailingSubject = "mailingConversionsubjectB" + i;
+				dataRow.conversionCount =  baseNum*20 + i;;
+				dataRow.items = 60 + i;
+				dataRow.averageOrderValue =  i + 10;
+				dataRow.revenue =  30 + i;
+				dataRow.covertToClicks =  baseNum*4 + i;
+				dataRow.mailingId =  baseNum*3 + i;
+				dataRow.linkId =  baseNum*2 + i;
 			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target"){
 				//here for dataType : day week month quarter
 				dataRow.date = dateVal[i];
