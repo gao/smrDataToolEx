@@ -14,6 +14,18 @@ snow.ui.registerComponent("createSmrData",
 		var component = this;
 		var $element = this.$element;
 		
+		$("#selectDataFor").change(function(){
+			var $this = $(this);
+			var val = $this.val();
+			if(val == "filterLightbox"){
+				$("#selectDataTypeFilter").show();
+				$("#selectDataType").hide();
+			}else if(val == "batch" || val == "transactional"){
+				$("#selectDataTypeFilter").hide();
+				$("#selectDataType").show();
+			}
+		});
+		
 		$element.sTouch(".generateButton",function(e){
 			var $frtText = $("#frtText");
 			var $scdText = $("#scdText");
@@ -21,7 +33,14 @@ snow.ui.registerComponent("createSmrData",
 			var frtTextVal = $frtText.val();
 			var scdTextVal = "";
 			var dataFor = $("#selectDataFor option:selected").val();
-			var dataTpye = $("#selectDataType option:selected").val();
+			
+			var dataTpye = "batch";
+			if(dataFor == "filterLightbox"){
+				dataTpye = $("#selectDataTypeFilter option:selected").val();
+			}else if(dataFor == "batch" || dataFor == "transactional"){
+				dataTpye = $("#selectDataType option:selected").val();
+			}
+			
 			
 			if(dataTpye == "comparison"){
 				scdTextVal = smr.generateSmrComparisonData(frtTextVal,dataFor,dataTpye);
@@ -55,6 +74,7 @@ snow.ui.registerComponent("createSmrData",
 		<select id="selectDataFor">
 			<option value="batch">Batch</option>
 			<option value="transactional">Transactional</option>
+			<option value="filterLightbox">Filter Lightbox</option>
 		</select>
 		<br>
 		<lable>Data Type:</lable>
@@ -71,9 +91,11 @@ snow.ui.registerComponent("createSmrData",
 			<option value="failureinstance">Failure Instance</option>
 			<option value="links">Links</option>
 			<option value="comparison">Comparison</option>
-			<option value="filterMailings">Filter Lightbox Mailings</option>
-			<option value="filterPrograms">Filter Lightbox Programs</option>
-			<option value="filterCampaigns">Filter Lightbox Campaigns</option>
+		</select>
+		<select id="selectDataTypeFilter" style="display:none;">
+			<option value="filterMailings">Mailings</option>
+			<option value="filterPrograms">Programs</option>
+			<option value="filterCampaigns">Campaigns</option>
 		</select>
 	</div>
 

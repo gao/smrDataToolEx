@@ -37,6 +37,7 @@ smr.mockDelivered=[114,326,323,216,319,214,118,220,320,126,217,447,143,213,329,3
 smr.mockDeliveredPct=[12,30,13,26,7,21,9,20,9,16,11,11,43,15,18,15,13,21,24,30,9];
 
 smr.generateSmrData = function(text,dataFor,dataType){
+	console.log(dataFor+"-----"+dataType);
 	var data = eval("(" + text + ")");
 	var resultData = [];
 	var dateVal = smr.dateForDay;
@@ -104,15 +105,19 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.failureRate =  i*2;
 			}else if(dataType == "failureinstance"){
 				dataRow.block = baseNum + i;
+				dataRow.blockFailedRate = i*1.5;
 				dataRow.date = dateVal[i];
 				dataRow.failed = baseNum*10 + i;
 				dataRow.failedRate = i*1.5;
 				dataRow.hbounce = baseNum*20 + i;
+				dataRow.hbounceFailedRate = i*2;
 				dataRow.sbounce =  i*5;
+				dataRow.sbounceFailedRate = i*3;
 				dataRow.sent =  baseNum*15 + i;
-				dataRow.sentRate =  i*1.5;
 				dataRow.technical =  i*2;
+				dataRow.technicalFailedRate = i*5;
 				dataRow.unknown =  i;
+				dataRow.unknownFailedRate = i*4;
 			}else if(dataType == "links"){
 				dataRow.clickRate = i*1.5;
 				dataRow.date = dateVal[i];
@@ -180,15 +185,19 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.failureRate =  i*2;
 			}else if(dataType == "failureinstance"){
 				dataRow.block = baseNumB + i;
+				dataRow.blockFailedRate = i*2;
 				dataRow.date = dateVal[i];
 				dataRow.failed = baseNumB*10 + i;
 				dataRow.failedRate = i*1.5;
 				dataRow.hbounce = baseNumB*20 + i;
+				dataRow.hbounceFailedRate = i*2;
 				dataRow.sbounce =  i*2;
+				dataRow.hbounceFailedRate = i*5;
 				dataRow.sent =  baseNumB*15 + i;
-				dataRow.sentRate =  i;
 				dataRow.technical =  i;
+				dataRow.technicalFailedRate = i*4;
 				dataRow.unknown =  i*2;
+				dataRow.unknownFailedRate = i*5;
 			}else if(dataType == "links"){
 				dataRow.clickRate = i*2;
 				dataRow.date = dateVal[i];
@@ -231,25 +240,27 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.delivered.rateChange = smr.mockDeliveredPct[i] - addRate;
 			}
 			
+		}else if(dataFor == "filterLightbox"){
+			//here the Filter Lightbox 
+			if(dataType == "filterMailings"){
+				dataRow.campaign = "testcampaign" + i;
+				dataRow.completedDate =  dateVal2[i];
+				dataRow.id = i + 1;
+				dataRow.launchDate = dateVal[i];
+				dataRow.name =  "testmailing" + i;
+			}else if(dataType == "filterPrograms"){
+				dataRow.campaign = "testcampaign" + i + 1;
+				dataRow.completedDate =  dateVal2[i];
+				dataRow.id = i + 1;
+				dataRow.launchDate = dateVal[i];
+				dataRow.name =  "testprogram" + i;
+			}else if(dataType == "filterCampaigns"){
+				dataRow.campaign = "testcampaign" + i;
+				dataRow.id = i + 1;
+			}
 		}
 		
-		//here the Filter Lightbox 
-		if(dataType == "filterMailings"){
-			dataRow.campaign = "testcampaign" + i;
-			dataRow.completedDate =  dateVal2[i];
-			dataRow.id = i + 1;
-			dataRow.launchDate = dateVal[i];
-			dataRow.name =  "testmailing" + i;
-		}else if(dataType == "filterPrograms"){
-			dataRow.campaign = "testcampaign" + i + 1;
-			dataRow.completedDate =  dateVal2[i];
-			dataRow.id = i + 1;
-			dataRow.launchDate = dateVal[i];
-			dataRow.name =  "testprogram" + i;
-		}else if(dataType == "filterCampaigns"){
-			dataRow.campaign = "testcampaign" + i;
-			dataRow.id = i + 1;
-		}
+		
 		
 		resultData.push(eval("(" + JSON.stringify(dataRow)+ ")"));
 	}
