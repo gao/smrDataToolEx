@@ -34,10 +34,10 @@ snow.ui.registerComponent("createSmrData",
 			var scdTextVal = "";
 			var dataFor = $("#selectDataFor option:selected").val();
 			
-			var dataTpye = "batch";
+			var dataTpye = "day";
 			if(dataFor == "filterLightbox"){
 				dataTpye = $("#selectDataTypeFilter option:selected").val();
-			}else if(dataFor == "batch" || dataFor == "transactional"){
+			}else if(dataFor == "batch" || dataFor == "transactional" || dataFor == "lifecycle"){
 				dataTpye = $("#selectDataType option:selected").val();
 			}
 			
@@ -75,6 +75,7 @@ snow.ui.registerComponent("createSmrData",
 			<option value="batch">Batch</option>
 			<option value="transactional">Transactional</option>
 			<option value="filterLightbox">Filter Lightbox</option>
+			<option value="lifecycle">Lifecycle</option>
 		</select>
 		<br>
 		<lable>Data Type:</lable>
@@ -82,9 +83,12 @@ snow.ui.registerComponent("createSmrData",
 			<option value="day">Day</option>
 			<option value="week">Week</option>
 			<option value="month">Month</option>
-			<option value="mailing">Mailing</option>
 			<option value="quarter">Quarter</option>
+			<option value="year">Year</option>
+			<option value="mailing">Mailing</option>
 			<option value="target">Target</option>
+			<option value="campaign">Campaign</option>
+			<option value="program">Program</option>
 			<option value="sharing">Sharing</option>
 			<option value="sharingftaf">Sharing Ftaf</option>
 			<option value="failuredetail">Failure Detail</option>
