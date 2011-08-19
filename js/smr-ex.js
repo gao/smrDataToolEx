@@ -79,6 +79,10 @@ smr.generateSmrData = function(text,dataFor,dataType){
 	}else if(dataType == "program"){
 		addCount = 45;
 		addRate = 2;
+	}else if(dataType == "bean" || dataType == "graphEntry"){
+		dateVal = smr.dateForMonth;
+		addCount = 45;
+		addRate = 2;
 	}
 	
 	//here change date format
@@ -156,7 +160,7 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.items = 80 + i;
 				dataRow.averageOrderValue =  i + 5;
 				dataRow.revenue =  20 + i;
-				dataRow.covertToClicks =  baseNum*5 + i;
+				dataRow.covertToClicks = smr.mockClicksRate[i] + addRate;
 				dataRow.mailingId =  baseNum*3 + i;
 				dataRow.linkId =  baseNum*2 + i;
 			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target"){
@@ -281,7 +285,7 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.items = 60 + i;
 				dataRow.averageOrderValue =  i + 10;
 				dataRow.revenue =  30 + i;
-				dataRow.covertToClicks =  baseNum*4 + i;
+				dataRow.covertToClicks =  smr.mockClicksRate[i] - addRate;
 				dataRow.mailingId =  baseNum*3 + i;
 				dataRow.linkId =  baseNum*2 + i;
 			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target" ||
@@ -292,10 +296,10 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.campaign = "campaign" + i;
 				
 				dataRow.averageRevenue.count = smr.mockClicks[i] + addCount;
-				dataRow.averageRevenue.rate = smr.mockClicks[i] - addCount;
+				dataRow.averageRevenue.rate = smr.mockClicksRate[i] - addRate;
 				
-				dataRow.clickToOpen.rate = smr.mockClicks[i] - addCount;
-				dataRow.clickToOpen.uniqueRate = smr.mockClicks[i] + addCount;
+				dataRow.clickToOpen.rate = smr.mockClicksRate[i] - addRate;
+				dataRow.clickToOpen.uniqueRate = smr.mockClicksRate[i] + addRate;
 				
 				dataRow.clicks.count = smr.mockClicks[i] + addCount;
 				dataRow.clicks.rate = smr.mockClicksRate[i] + addRate;
@@ -306,8 +310,8 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.conversions.count = smr.mockClicks[i] + addCount;
 				dataRow.conversions.rate = smr.mockClicksRate[i] + addRate;
 				
-				dataRow.convertToClick.rate = smr.mockClicks[i] - addCount;
-				dataRow.convertToClick.uniqueRate = smr.mockClicks[i] + addCount;
+				dataRow.convertToClick.rate = smr.mockClicksRate[i] - addRate
+				dataRow.convertToClick.uniqueRate = smr.mockClicksRate[i] + addRate
 				
 				dataRow.delivered.count = smr.mockDelivered[i] + addCount;
 				dataRow.delivered.rate = smr.mockDeliveredPct[i] - addRate;
@@ -363,6 +367,40 @@ smr.generateSmrData = function(text,dataFor,dataType){
 			}else if(dataType == "filterCampaigns"){
 				dataRow.campaign = "testcampaign" + i;
 				dataRow.id = i + 1;
+			}
+		}else if(dataFor == "campaignOverview"){
+			//here the campaign Overview 
+			if(dataType == "bean"){
+				dataRow.campaignId = baseNum + i;;
+				dataRow.campaignName = "Campaign" + i;;
+				dataRow.clickRateVariance = smr.mockSentsRate[i];
+				dataRow.conversionRate = smr.mockDeliveredPct[i] + i;
+				dataRow.conversionRevenue = smr.mockDelivered[i];
+				dataRow.deliveryRate = smr.mockDeliveredPct[i];
+				dataRow.openRateVariance = smr.mockOpensPct[i];
+				dataRow.totalDelivered = smr.mockDelivered[i];
+				dataRow.totalSent = smr.mockSents[i];
+				dataRow.totalUniqueClicks = smr.mockClicks[i];
+				dataRow.totalUniqueOpen = smr.mockOpens[i];
+				dataRow.totalUniqueUnSubs = smr.mockClicks[i] + addCount;
+				dataRow.uniqueClickRate = smr.mockClicksRate[i];
+				dataRow.uniqueOpenRate = smr.mockOpensRate[i];
+				dataRow.uniqueUnSubsRate = smr.mockOpensRate[i] + addRate;
+			}else if(dataType == "graphEntry"){
+				dataRow.campaignId = baseNum + i;;
+				dataRow.campaignName = "Campaign" + i;;
+				dataRow.conversionRate = smr.mockDeliveredPct[i] + i;
+				dataRow.conversionRevenue = smr.mockDelivered[i];;
+				dataRow.date = dateVal[i];
+				dataRow.deliveryRate = smr.mockDeliveredPct[i];
+				dataRow.totalDelivered = smr.mockDelivered[i];
+				dataRow.totalSent = smr.mockSents[i];
+	        	dataRow.totalUniqueClicks = smr.mockClicks[i];
+	        	dataRow.totalUniqueOpen = smr.mockOpens[i];
+	        	dataRow.totalUniqueUnSubs = smr.mockClicks[i] + addCount;
+	        	dataRow.uniqueClickRate = smr.mockClicksRate[i];
+	        	dataRow.uniqueOpenRate = smr.mockOpensRate[i];
+	        	dataRow.uniqueUnSubsRate = smr.mockOpensRate[i] + addRate;
 			}
 		}
 		

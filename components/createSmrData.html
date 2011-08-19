@@ -20,9 +20,15 @@ snow.ui.registerComponent("createSmrData",
 			if(val == "filterLightbox"){
 				$("#selectDataTypeFilter").show();
 				$("#selectDataType").hide();
+				$("#selectDataTypeCampaignOverview").hide();
 			}else if(val == "batch" || val == "transactional"){
 				$("#selectDataTypeFilter").hide();
 				$("#selectDataType").show();
+				$("#selectDataTypeCampaignOverview").hide();
+			}else if(val == "campaignOverview"){
+				$("#selectDataTypeFilter").hide();
+				$("#selectDataType").hide();
+				$("#selectDataTypeCampaignOverview").show();
 			}
 		});
 		
@@ -35,12 +41,13 @@ snow.ui.registerComponent("createSmrData",
 			var dataFor = $("#selectDataFor option:selected").val();
 			
 			var dataTpye = "day";
-			if(dataFor == "filterLightbox"){
+			if (dataFor == "filterLightbox") {
 				dataTpye = $("#selectDataTypeFilter option:selected").val();
-			}else if(dataFor == "batch" || dataFor == "transactional" || dataFor == "lifecycle"){
+			}else if (dataFor == "batch" || dataFor == "transactional" || dataFor == "lifecycle") {
 				dataTpye = $("#selectDataType option:selected").val();
+			}else if (dataFor == "campaignOverview") {
+				dataTpye = $("#selectDataTypeCampaignOverview option:selected").val();
 			}
-			
 			
 			if(dataTpye == "comparison"){
 				scdTextVal = smr.generateSmrComparisonData(frtTextVal,dataFor,dataTpye);
@@ -76,6 +83,7 @@ snow.ui.registerComponent("createSmrData",
 			<option value="transactional">Transactional</option>
 			<option value="filterLightbox">Filter Lightbox</option>
 			<option value="lifecycle">Lifecycle</option>
+			<option value="campaignOverview">Campaign Overview</option>
 		</select>
 		<br>
 		<lable>Data Type:</lable>
@@ -101,6 +109,10 @@ snow.ui.registerComponent("createSmrData",
 			<option value="filterMailings">Mailings</option>
 			<option value="filterPrograms">Programs</option>
 			<option value="filterCampaigns">Campaigns</option>
+		</select>
+		<select id="selectDataTypeCampaignOverview" style="display:none;">
+			<option value="bean">Bean</option>
+			<option value="graphEntry">Graph Entry</option>
 		</select>
 	</div>
 
