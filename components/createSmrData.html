@@ -21,14 +21,22 @@ snow.ui.registerComponent("createSmrData",
 				$("#selectDataTypeFilter").show();
 				$("#selectDataType").hide();
 				$("#selectDataTypeCampaignOverview").hide();
+				$("#selectDataTypeDeliverability").hide();
 			}else if(val == "batch" || val == "transactional"){
 				$("#selectDataTypeFilter").hide();
 				$("#selectDataType").show();
 				$("#selectDataTypeCampaignOverview").hide();
+				$("#selectDataTypeDeliverability").hide();
 			}else if(val == "campaignOverview"){
 				$("#selectDataTypeFilter").hide();
 				$("#selectDataType").hide();
 				$("#selectDataTypeCampaignOverview").show();
+				$("#selectDataTypeDeliverability").hide();
+			}else if(val == "deliverability"){
+				$("#selectDataTypeFilter").hide();
+				$("#selectDataType").hide();
+				$("#selectDataTypeCampaignOverview").hide();
+				$("#selectDataTypeDeliverability").show();
 			}
 		});
 		
@@ -47,6 +55,8 @@ snow.ui.registerComponent("createSmrData",
 				dataTpye = $("#selectDataType option:selected").val();
 			}else if (dataFor == "campaignOverview") {
 				dataTpye = $("#selectDataTypeCampaignOverview option:selected").val();
+			}else if (dataFor == "deliverability") {
+				dataTpye = $("#selectDataTypeDeliverability option:selected").val();
 			}
 			
 			if(dataTpye == "comparison"){
@@ -84,6 +94,7 @@ snow.ui.registerComponent("createSmrData",
 			<option value="filterLightbox">Filter Lightbox</option>
 			<option value="lifecycle">Lifecycle</option>
 			<option value="campaignOverview">Campaign Overview</option>
+			<option value="deliverability">Deliverability</option>
 		</select>
 		<br>
 		<lable>Data Type:</lable>
@@ -113,6 +124,13 @@ snow.ui.registerComponent("createSmrData",
 		<select id="selectDataTypeCampaignOverview" style="display:none;">
 			<option value="bean">Bean</option>
 			<option value="graphEntry">Graph Entry</option>
+		</select>
+		<select id="selectDataTypeDeliverability" style="display:none;">
+			<option value="vsgIPs">Vsg IPs</option>
+			<option value="overviewFailure">Overview Failure</option>
+			<option value="overviewEntryBean">Overview EntryBean</option>
+			<option value="defers">Defers</option>
+			<option value="failure">Failure</option>
 		</select>
 	</div>
 

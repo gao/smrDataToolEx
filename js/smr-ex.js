@@ -23,20 +23,20 @@ smr.dateFormat2=['09\/05\/2011','09\/06\/2011','09\/07\/2011','09\/08\/2011','09
                 '09\/19\/2011','09\/20\/2011','09\/21\/2011','09\/22\/2011',]; 
 
 smr.mockClicks=[30014,36500,33841,26197,37239,27774,23183,20888,30253,26839,44417,41757,44383,15813,
-                   28449,25757,41533,28167,26347,30803,32185];
-smr.mockClicksRate=[14,36,33,26,39,24,18,20,30,26,17,47,43,13,29,25,41,28,27,30,32];
+                   28449,25757,41533,28167,26347,30803,32185,37239,27774,23183];
+smr.mockClicksRate=[14,36,33,26,39,24,18,20,30,26,17,47,43,13,29,25,41,28,27,30,32,26,17,47];
 
 smr.mockSents=[33214,36533,33823,24597,37439,27114,20083,22288,31253,26239,41217,12757,44283,15813,
-                   22349,23457,42433,22357,22347,30811,31111];
-smr.mockSentsRate=[30,10,33,26,37,27,23,20,30,26,17,41,43,15,28,25,13,21,24,30,35];
+                   22349,23457,42433,22357,22347,30811,31111,33823,24597,37439];
+smr.mockSentsRate=[30,10,33,26,37,27,23,20,30,26,17,41,43,15,28,25,13,21,24,30,35,17,41,43];
 
 smr.mockOpens=[13214,16533,13823,14597,17439,17114,20083,12288,11253,16239,11217,12757,14283,15813,
-               12349,13457,12433,12357,12347,10811,11111];
-smr.mockOpensRate=[10,30,43,16,17,27,23,24,34,24,14,31,33,18,28,20,13,21,24,30,35];
-smr.mockOpensPct=[12,30,13,26,7,12,13,20,6,16,7,11,43,15,18,15,13,21,24,30,15];
+               12349,13457,12433,12357,12347,10811,11111,13457,12433,12357];
+smr.mockOpensRate=[10,30,43,16,17,27,23,24,34,24,14,31,33,18,28,20,13,21,24,30,35,31,33,18];
+smr.mockOpensPct=[12,30,13,26,7,12,13,20,6,16,7,11,43,15,18,15,13,21,24,30,15,31,33,18];
 
-smr.mockDelivered=[114,326,323,216,319,214,118,220,320,126,217,447,143,213,329,325,111,228,267,302,322];
-smr.mockDeliveredPct=[12,30,13,26,7,21,9,20,9,16,11,11,43,15,18,15,13,21,24,30,9];
+smr.mockDelivered=[114,326,323,216,319,214,118,220,320,126,217,447,143,213,329,325,111,228,267,302,322,120,155,129];
+smr.mockDeliveredPct=[12,30,13,26,7,21,9,20,9,16,11,11,43,15,18,15,13,21,24,30,9,12,15,10];
 
 smr.generateSmrData = function(text,dataFor,dataType){
 	console.log(dataFor+"-----"+dataType);
@@ -371,8 +371,8 @@ smr.generateSmrData = function(text,dataFor,dataType){
 		}else if(dataFor == "campaignOverview"){
 			//here the campaign Overview 
 			if(dataType == "bean"){
-				dataRow.campaignId = baseNum + i;;
-				dataRow.campaignName = "Campaign" + i;;
+				dataRow.campaignId = baseNum + i;
+				dataRow.campaignName = "Campaign" + i;
 				dataRow.clickRateVariance = smr.mockSentsRate[i];
 				dataRow.conversionRate = smr.mockDeliveredPct[i] + i;
 				dataRow.conversionRevenue = smr.mockDelivered[i];
@@ -387,10 +387,10 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.uniqueOpenRate = smr.mockOpensRate[i];
 				dataRow.uniqueUnSubsRate = smr.mockOpensRate[i] + addRate;
 			}else if(dataType == "graphEntry"){
-				dataRow.campaignId = baseNum + i;;
-				dataRow.campaignName = "Campaign" + i;;
+				dataRow.campaignId = baseNum + i;
+				dataRow.campaignName = "Campaign" + i;
 				dataRow.conversionRate = smr.mockDeliveredPct[i] + i;
-				dataRow.conversionRevenue = smr.mockDelivered[i];;
+				dataRow.conversionRevenue = smr.mockDelivered[i];
 				dataRow.date = dateVal[i];
 				dataRow.deliveryRate = smr.mockDeliveredPct[i];
 				dataRow.totalDelivered = smr.mockDelivered[i];
@@ -401,6 +401,47 @@ smr.generateSmrData = function(text,dataFor,dataType){
 	        	dataRow.uniqueClickRate = smr.mockClicksRate[i];
 	        	dataRow.uniqueOpenRate = smr.mockOpensRate[i];
 	        	dataRow.uniqueUnSubsRate = smr.mockOpensRate[i] + addRate;
+			}
+		}else if(dataFor == "deliverability"){
+			if(dataType == "vsgIPs"){
+				dataRow.mxIP = i + 1;
+				dataRow.vsg = "Default";
+				dataRow.vsgIP = i + 2;
+			}else if(dataType == "overviewFailure"){
+				dataRow.count = smr.mockDelivered[i];
+				dataRow.domainName = "n2n.com";
+				dataRow.rate = smr.mockDeliveredPct[i];
+			}else if(dataType == "overviewEntryBean"){
+				dataRow.block = i + 5;
+				dataRow.date = smr.dateFormat[i];
+				dataRow.deferered = i + 15;
+				dataRow.deliverabilty = smr.mockDeliveredPct[i];
+				dataRow.delivered = smr.mockDelivered[i];
+				dataRow.hard = smr.mockClicks[i];
+				dataRow.sent = smr.mockSents[i];
+				dataRow.soft = smr.mockSents[i] - (i*100);
+				dataRow.technical = i + 10;
+				dataRow.unknown = i + 2;
+			}else if(dataType == "defers"){
+				dataRow.sent = smr.mockSents[i];
+				dataRow.breakDownByColumn = "baddomain.com";
+				dataRow.defered = smr.mockDeliveredPct[i] + i;
+				dataRow.deferedRate = smr.mockDeliveredPct[i];
+			}else if(dataType == "failure"){
+				dataRow.block = i + 5;
+				dataRow.blockFailedRate = smr.mockDeliveredPct[i];
+				dataRow.breakDownByColumn = "testing.com";
+				dataRow.delivered = smr.mockDelivered[i];
+				dataRow.failureRate = smr.mockDeliveredPct[i] + i;
+				dataRow.hard = smr.mockSents[i];
+				dataRow.hardFailedRate = smr.mockOpensPct[i];
+				dataRow.sent = smr.mockSents[i];
+				dataRow.soft = smr.mockSents[i] - (i*100);
+				dataRow.softFailedRate = smr.mockSentsRate[i];
+				dataRow.technical = smr.mockDeliveredPct[i];
+				dataRow.technicalFailedRate = smr.mockDeliveredPct[i] + i;
+				dataRow.unknown = smr.mockOpensPct[i];
+				dataRow.unknownFailedRate = smr.mockDeliveredPct[i] + (i*0.5);
 			}
 		}
 		
