@@ -163,7 +163,7 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.covertToClicks = smr.mockClicksRate[i] + addRate;
 				dataRow.mailingId =  baseNum*3 + i;
 				dataRow.linkId =  baseNum*2 + i;
-			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target"){
+			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "year" || dataType == "campaign" || dataType == "mailing" || dataType == "target"){
 				//here for dataType : day week month quarter
 				dataRow.date = dateVal[i];
 				
@@ -184,6 +184,8 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.conversions.rate = smr.mockClicksRate[i] + addRate;
 				dataRow.conversions.unique = smr.mockClicks[i] - addCount;
 				dataRow.conversions.uniqueRate = smr.mockClicksRate[i] - addRate;
+				dataRow.conversions.revenue = smr.mockClicks[i] - (100*i);
+				dataRow.conversions.averageOrderValue = smr.mockClicks[i] - (200*i);
 				
 				dataRow.convertToClick.rate = i+5;
 				dataRow.convertToClick.uniqueRate = i+10;
@@ -202,8 +204,8 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.opens.unique = smr.mockOpens[i] - addCount;
 				dataRow.opens.uniqueRate = smr.mockOpensRate[i] - addRate;
 				
-				dataRow.revenue.count = smr.mockDelivered[i] + addCount;
-				dataRow.revenue.rate = smr.mockDeliveredPct[i] - addRate;
+//				dataRow.revenue.count = smr.mockDelivered[i] + addCount;
+//				dataRow.revenue.rate = smr.mockDeliveredPct[i] - addRate;
 				
 				dataRow.sent.count = smr.mockSents[i] + addCount;
 				dataRow.sent.rate = smr.mockSentsRate[i] + addRate;
@@ -295,8 +297,8 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.program = "program" + i;
 				dataRow.campaign = "campaign" + i;
 				
-				dataRow.averageRevenue.count = smr.mockClicks[i] + addCount;
-				dataRow.averageRevenue.rate = smr.mockClicksRate[i] - addRate;
+//				dataRow.averageRevenue.count = smr.mockClicks[i] + addCount;
+//				dataRow.averageRevenue.rate = smr.mockClicksRate[i] - addRate;
 				
 				dataRow.clickToOpen.rate = smr.mockClicksRate[i] - addRate;
 				dataRow.clickToOpen.uniqueRate = smr.mockClicksRate[i] + addRate;
@@ -309,6 +311,8 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				
 				dataRow.conversions.count = smr.mockClicks[i] + addCount;
 				dataRow.conversions.rate = smr.mockClicksRate[i] + addRate;
+				dataRow.conversions.revenue = smr.mockClicks[i] - (100*i);
+				dataRow.conversions.averageOrderValue = smr.mockClicks[i] - (200*i);
 				
 				dataRow.convertToClick.rate = smr.mockClicksRate[i] - addRate
 				dataRow.convertToClick.uniqueRate = smr.mockClicksRate[i] + addRate
@@ -337,8 +341,10 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.uniqueComplaints.count = smr.mockClicks[i] - addCount;
 				dataRow.uniqueComplaints.rate = smr.mockClicksRate[i] - addRate;
 				
-				dataRow.uniqueConversions.count = smr.mockClicks[i] - addCount;
-				dataRow.uniqueConversions.rate = smr.mockClicksRate[i] - addRate;
+//				dataRow.uniqueConversions.count = smr.mockClicks[i] - addCount;
+//				dataRow.uniqueConversions.rate = smr.mockClicksRate[i] - addRate;
+//				dataRow.uniqueConversions.revenue = smr.mockClicks[i] + (100*i);
+//				dataRow.uniqueConversions.averageOrderValue = smr.mockClicks[i] + (200*i);
 				
 				dataRow.uniqueOpens.count = smr.mockOpens[i] - addCount;
 				dataRow.uniqueOpens.rate = smr.mockOpensRate[i] - addRate;
@@ -461,11 +467,9 @@ smr.generateSmrComparisonData = function(text,dataFor,dataType){
 	var summary = {"summary":{},"summary2":{}};
 	
 	for(var i=0;i<2;i++){
-		console.log(smr.mockClicksRate[i]);
 		var dataRow = data;
 		if(dataFor == "batch"){
 			dataRow.clickToOpen.uniqueRate = smr.mockClicksRate[i] ;
-			console.log(dataRow.clickToOpen.uniqueRate);
 			dataRow.clickToOpen.rate = smr.mockClicksRate[i];
 			
 			dataRow.clicks.count = smr.mockClicks[i];
@@ -482,6 +486,8 @@ smr.generateSmrComparisonData = function(text,dataFor,dataType){
 			dataRow.conversions.rate = smr.mockClicksRate[i] + i;
 			dataRow.conversions.unique = smr.mockClicks[i] + (i+2) ;
 			dataRow.conversions.uniqueRate = smr.mockClicksRate[i] + (i+2);
+			dataRow.conversions.revenue = smr.mockClicks[i] - (1000*i);
+			dataRow.conversions.averageOrderValue = smr.mockClicks[i] - (2000*i);
 			
 			dataRow.convertToClick.rate = smr.mockSentsRate[i] + i;
 			dataRow.convertToClick.uniqueRate = smr.mockSentsRate[i] + i;
@@ -528,6 +534,8 @@ smr.generateSmrComparisonData = function(text,dataFor,dataType){
 			
 			dataRow.conversions.count = smr.mockClicks[i] + (i*5);
 			dataRow.conversions.rate = smr.mockClicksRate[i] + (i+5);
+			dataRow.conversions.revenue = smr.mockClicks[i] + (1000*i);
+			dataRow.conversions.averageOrderValue = smr.mockClicks[i] + (2000*i);
 			
 			dataRow.convertToClick.rate = smr.mockSentsRate[i] + i;
 			dataRow.convertToClick.uniqueRate = smr.mockSentsRate[i] + (i+5);
@@ -560,6 +568,8 @@ smr.generateSmrComparisonData = function(text,dataFor,dataType){
 			
 			dataRow.uniqueConversions.count = smr.mockClicks[i] + (i*22);
 			dataRow.uniqueConversions.rate = smr.mockClicksRate[i] + (i+2);
+			dataRow.uniqueConversions.revenue = smr.mockClicks[i] - (1000*i);
+			dataRow.uniqueConversions.averageOrderValue = smr.mockClicks[i] - (2000*i);
 			
 			dataRow.uniqueOpens.count = smr.mockOpens[i] + (i*220);
 			dataRow.uniqueOpens.rate = smr.mockOpensRate[i] + (i*2);
