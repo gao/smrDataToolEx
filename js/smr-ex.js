@@ -159,6 +159,9 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.conversionCount =  baseNum*10 + i;;
 				dataRow.items = 80 + i;
 				dataRow.averageOrderValue =  i + 5;
+				dataRow.clicks =  i + 50;
+				dataRow.delivered =  i + 5;
+				dataRow.opens =  20 + i;
 				dataRow.revenue =  20 + i;
 				dataRow.covertToClicks = smr.mockClicksRate[i] + addRate;
 				dataRow.mailingId =  baseNum*3 + i;
@@ -298,6 +301,9 @@ smr.generateSmrData = function(text,dataFor,dataType){
 				dataRow.covertToClicks =  smr.mockClicksRate[i] - addRate;
 				dataRow.mailingId =  baseNum*3 + i;
 				dataRow.linkId =  baseNum*2 + i;
+				dataRow.clicks =  i + 50;
+				dataRow.delivered =  i + 5;
+				dataRow.opens =  20 + i;
 			}else if(dataType == "day" || dataType == "week" || dataType == "month" || dataType == "quarter" || dataType == "mailing" || dataType == "target" ||
 					dataType == "year" || dataType == "campaign" || dataType == "program"){
 				//here for dataType : day week month quarter
